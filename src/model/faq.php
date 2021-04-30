@@ -3,10 +3,19 @@
 namespace Bageur\FAQ\model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class faq extends Model
 {
     protected $table = 'bgr_faq';
+
+    protected $appends = ['text_limit'];
+
+    public function getTextLimitAttribute() {
+        $text = strip_tags($this->jawaban);
+        return Str::limit($text,80);
+        // return Str::limit(\Bageur::toText($this->text),150);
+   }
 
     public function scopeDatatable($query,$request,$page=12)
     {
