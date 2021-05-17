@@ -109,4 +109,15 @@ class FAQController extends Controller
         $delete->delete();
         return response(['status' => true ,'text'    => 'has deleted'], 200);
     }
+
+    public function urutan(Request $request)
+    {
+        $up         = faq::find($request->id);
+        $up->urutan = $request->urutan_baru;
+        $up->update();
+
+        $up2        = faq::find($request->id_old);
+        $up2->urutan = $request->urutan_sekarang;
+        $up2->update();
+    }
 }
